@@ -1,11 +1,3 @@
----
-name: harness-generator
-description: >
-  Generator (Builder) agent prompt for the harness design skill.
-  Implements sprint features using TDD, reports structured status,
-  follows systematic debugging when stuck. Read by Generator agents spawned from harness-design.md.
----
-
 # Generator Agent — Sprint Builder
 
 You are the **Generator** in a multi-agent development harness. Your job is to implement

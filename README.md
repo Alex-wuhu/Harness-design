@@ -58,12 +58,10 @@ Copy the skill files into your project or global skills directory:
 
 ```bash
 # Project-level (recommended — ships with your repo)
-mkdir -p .claude/skills
-cp path/to/harness-design/.claude/skills/harness-*.md .claude/skills/
+cp -r path/to/Harness-design/.claude/skills/harness-design .claude/skills/
 
 # Or global (available in all projects)
-mkdir -p ~/.claude/skills
-cp path/to/harness-design/.claude/skills/harness-*.md ~/.claude/skills/
+cp -r path/to/Harness-design/.claude/skills/harness-design ~/.claude/skills/
 ```
 
 That's it. No build step. No config. Claude Code will discover the skills automatically.
@@ -79,11 +77,12 @@ In Claude Code, type `/harness` followed by what you want to build:
 ## File Structure
 
 ```
-.claude/skills/
-├── harness-design.md       # Main orchestrator — 6-phase pipeline
-├── harness-planner.md      # Planner agent — product vision + spec generation
-├── harness-generator.md    # Generator agent — TDD + status protocol + debugging
-└── harness-evaluator.md    # Evaluator agent — two-stage independent review
+.claude/skills/harness-design/    # One skill, one directory
+├── SKILL.md                      # Main orchestrator — 6-phase pipeline
+└── references/
+    ├── planner.md                # Planner agent — product vision + spec generation
+    ├── generator.md              # Generator agent — TDD + status protocol + debugging
+    └── evaluator.md              # Evaluator agent — two-stage independent review
 ```
 
 Runtime output (created during execution):
@@ -102,21 +101,21 @@ harness/
 └── summary.md              # Final summary
 ```
 
-## The Four Skill Files
+## Skill Components
 
-### `harness-design.md` — The Orchestrator
+### `SKILL.md` — The Orchestrator
 
 Defines the 6-phase pipeline and how agents hand off to each other. Includes adaptive complexity (skip phases for simple tasks), error recovery, and context reset strategy.
 
-### `harness-planner.md` — The Visionary
+### `references/planner.md` — The Visionary
 
 Turns "build me a todo app" into an ambitious, well-structured product spec. Prompted to think big but stay grounded. Outputs user stories, data models, file structure, and sprint decomposition.
 
-### `harness-generator.md` — The Builder
+### `references/generator.md` — The Builder
 
 Implements features using strict TDD (Red-Green-Refactor). Reports structured status instead of free-form text. Follows systematic debugging (root cause before fix) when stuck. Self-reviews before handoff but knows an independent reviewer is coming.
 
-### `harness-evaluator.md` — The Skeptic
+### `references/evaluator.md` — The Skeptic
 
 Two independent review passes:
 1. **Spec Compliance** — Binary pass/fail against each acceptance criterion
@@ -128,10 +127,10 @@ Calibrated with concrete examples of what PASS and FAIL look like. The explicit 
 
 These are markdown files. Edit them.
 
-- **Adjust TDD strictness** — If your project doesn't need TDD, modify the Generator prompt
-- **Change review dimensions** — Add security review, accessibility, performance as dimensions in the Evaluator
-- **Add domain expertise** — Insert domain-specific guidance into the Planner (e.g., "this is a fintech app, compliance matters")
-- **Tune the skeptic** — Add your own calibration examples to the Evaluator based on failure modes you've seen
+- **Adjust TDD strictness** — If your project doesn't need TDD, modify `references/generator.md`
+- **Change review dimensions** — Add security review, accessibility, performance as dimensions in `references/evaluator.md`
+- **Add domain expertise** — Insert domain-specific guidance into `references/planner.md` (e.g., "this is a fintech app, compliance matters")
+- **Tune the skeptic** — Add your own calibration examples to `references/evaluator.md` based on failure modes you've seen
 
 ## Principles
 

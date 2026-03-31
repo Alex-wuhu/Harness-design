@@ -1,14 +1,12 @@
 ---
-name: harness
+name: harness-design
 description: >
   Multi-agent harness for long-running application development.
   Orchestrates Brainstorming, Planning, Building, and Two-Stage Review to build
   complete applications from a brief prompt. Tech-stack agnostic.
   Use when building a complete app, adding a large feature, or any multi-sprint task.
-trigger: >
-  When the user invokes /harness, or asks to build a complete application,
-  or requests a large-scale feature implementation that would benefit from
-  structured planning, iterative building, and independent evaluation.
+  Use this skill whenever the user mentions "harness", asks to build a full application
+  from scratch, or requests a structured multi-step development workflow.
 ---
 
 # Harness Design — Multi-Agent Application Builder
@@ -129,7 +127,7 @@ this phase can be brief (1-2 questions). Don't over-brainstorm obvious tasks.
 
 **Spawn a Planner agent** (subagent_type: "general-purpose"):
 
-> Read `.claude/skills/harness-planner.md` for your role instructions.
+> Read `references/planner.md` (relative to this skill's directory) for your role instructions.
 > Read `harness/context.md` for project context.
 > The user's request is: [USER_REQUEST]
 > Brainstorming conclusions: [SUMMARY_OF_PHASE_1]
@@ -181,7 +179,7 @@ Write to `harness/contracts/sprint-N.md`:
 
 **Spawn a Generator agent** (subagent_type: "general-purpose"):
 
-> Read `.claude/skills/harness-generator.md` for your role instructions.
+> Read `references/generator.md` (relative to this skill's directory) for your role instructions.
 >
 > Read these files for context:
 > - `harness/context.md` — project tech stack and conventions
@@ -222,7 +220,7 @@ Review is split into two independent passes. **Never combine them.**
 
 **Spawn a Spec Reviewer agent** (subagent_type: "general-purpose"):
 
-> Read `.claude/skills/harness-evaluator.md`, section "Stage 1: Spec Compliance".
+> Read `references/evaluator.md` (relative to this skill's directory), section "Stage 1: Spec Compliance".
 >
 > Sprint Contract: `harness/contracts/sprint-N.md`
 > Generator's handoff: `harness/handoffs/sprint-N.md`
@@ -237,7 +235,7 @@ Review is split into two independent passes. **Never combine them.**
 
 **Spawn a Code Quality Reviewer agent** (subagent_type: "general-purpose"):
 
-> Read `.claude/skills/harness-evaluator.md`, section "Stage 2: Code Quality".
+> Read `references/evaluator.md` (relative to this skill's directory), section "Stage 2: Code Quality".
 >
 > Sprint Contract: `harness/contracts/sprint-N.md`
 > Project Context: `harness/context.md`
