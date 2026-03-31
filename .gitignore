@@ -1,0 +1,13 @@
+# Runtime output (generated during harness execution)
+harness/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
